@@ -1,5 +1,4 @@
 import { EndingCard } from "@/components/general/ending-card";
-import { FormbricksBranding } from "@/components/general/formbricks-branding";
 import { LanguageSwitch } from "@/components/general/language-switch";
 import { ProgressBar } from "@/components/general/progress-bar";
 import { QuestionConditional } from "@/components/general/question-conditional";
@@ -31,7 +30,6 @@ interface VariableStackEntry {
 export function Survey({
   survey,
   styling,
-  isBrandingEnabled,
   onDisplay,
   onResponse,
   onClose,
@@ -431,7 +429,6 @@ export function Survey({
             {content()}
           </div>
           <div className="fb-mx-6 fb-mb-10 fb-mt-2 fb-space-y-3 sm:fb-mb-6 sm:fb-mt-6">
-            {isBrandingEnabled ? <FormbricksBranding /> : null}
             {showProgressBar ? <ProgressBar survey={localSurvey} questionId={questionId} /> : null}
           </div>
         </div>

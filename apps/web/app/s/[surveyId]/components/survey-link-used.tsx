@@ -2,10 +2,7 @@
 
 import { useTranslate } from "@tolgee/react";
 import { CheckCircle2Icon } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
 import { TSurveySingleUse } from "@formbricks/types/surveys/types";
-import footerLogo from "../lib/footerlogo.svg";
 
 interface SurveyLinkUsedProps {
   singleUseMessage: TSurveySingleUse | null;
@@ -25,11 +22,7 @@ export const SurveyLinkUsed = ({ singleUseMessage }: SurveyLinkUsedProps) => {
           {singleUseMessage?.subheading ?? defaultSubheading}
         </p>
       </div>
-      <div>
-        <Link href="https://formbricks.com">
-          <Image src={footerLogo as string} alt="Brand logo" className="mx-auto w-40" />
-        </Link>
-      </div>
+      <div></div>
     </div>
   );
 };

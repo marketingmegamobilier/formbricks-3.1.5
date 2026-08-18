@@ -168,6 +168,7 @@ x-environment: &environment
     # DEFAULT_ORGANIZATION_ID:
     # DEFAULT_ORGANIZATION_ROLE: owner
 
+
 services:
   postgres:
     restart: always
@@ -175,22 +176,23 @@ services:
     volumes:
       - postgres:/var/lib/postgresql/data
     environment:
-      # Postgres DB Super User Password
-      # Replace the below with your own secure password & Make sure the password matches the password field in DATABASE_URL above
       - POSTGRES_PASSWORD=postgres
+
 
   formbricks:
     restart: always
-    image: ghcr.io/formbricks/formbricks:latest
+    image: holdingmendieta/custom-formbricks:3.1.5
+   # image: ghcr.io/formbricks/formbricks:v3.1.5
     depends_on:
       - postgres
-    ports:
-      - 3000:3000
+    expose:
+      - 3000
     volumes:
-      - uploads:/home/nextjs/apps/web/uploads/
+      - ../files/uploads:/home/nextjs/apps/web/uploads/
     <<: *environment
 
 volumes:
   postgres:
     driver: local
   uploads:
+

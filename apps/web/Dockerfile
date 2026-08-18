@@ -29,6 +29,8 @@ ENV DATABASE_URL="postgresql://placeholder:for@build:5432/gets_overwritten_at_ru
 ENV NEXTAUTH_SECRET="placeholder_for_next_auth_of_64_chars_get_overwritten_at_runtime"
 ENV ENCRYPTION_KEY="placeholder_for_build_key_of_64_chars_get_overwritten_at_runtime"
 ENV CRON_SECRET="placeholder_for_cron_secret_of_64_chars_get_overwritten_at_runtime"
+# Increase Node.js heap limit: `next build` type checking OOMs with the default ~2GB cap
+ENV NODE_OPTIONS="--max-old-space-size=6144"
 
 ARG NEXT_PUBLIC_SENTRY_DSN
 ARG SENTRY_AUTH_TOKEN
@@ -94,8 +96,7 @@ COPY /docker/cronjobs /app/docker/cronjobs
 # Copy only @paralleldrive/cuid2 and @noble/hashes
 COPY --from=installer /app/node_modules/@paralleldrive/cuid2 ./node_modules/@paralleldrive/cuid2
 COPY --from=installer /app/node_modules/@noble/hashes ./node_modules/@noble/hashes
-
-RUN npm install -g tsx typescript prisma
+RUN npm install -g tsx typescript prisma@$(cat prisma_version.txt | tr -d '[:space:]')
 
 EXPOSE 3000
 ENV HOSTNAME "0.0.0.0"
