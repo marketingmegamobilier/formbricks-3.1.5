@@ -30,28 +30,28 @@ x-environment: &environment
 
     # Enterprise License Key (More info at: https://formbricks.com/docs/self-hosting/license)
     # Required to access Enterprise-only features
-    ENTERPRISE_LICENSE_KEY: ${ENTERPRISE_LICENSE_KEY:-}
+    # ENTERPRISE_LICENSE_KEY: ${ENTERPRISE_LICENSE_KEY:?set in docker/.env}
 
     ############################################# OPTIONAL (EMAIL CONFIGURATION) #############################################
 
     # Email Configuration
-    MAIL_FROM: ${MAIL_FROM:-}
-    SMTP_HOST: ${SMTP_HOST:-}
-    SMTP_PORT: ${SMTP_PORT:-}
-    SMTP_USER: ${SMTP_USER:-}
-    SMTP_PASSWORD: ${SMTP_PASSWORD:-}
-    SMTP_AUTHENTICATED: ${SMTP_AUTHENTICATED:-}
+    # MAIL_FROM: ${MAIL_FROM:?set in docker/.env}
+    # SMTP_HOST: ${SMTP_HOST:?set in docker/.env}
+    # SMTP_PORT: ${SMTP_PORT:?set in docker/.env}
+    # SMTP_USER: ${SMTP_USER:?set in docker/.env}
+    # SMTP_PASSWORD: ${SMTP_PASSWORD:?set in docker/.env}
+    # SMTP_AUTHENTICATED: ${SMTP_AUTHENTICATED:?set in docker/.env}
 
     # (Additional option for TLS (port 465) only)
-    SMTP_SECURE_ENABLED: ${SMTP_SECURE_ENABLED:-}
+    # SMTP_SECURE_ENABLED: ${SMTP_SECURE_ENABLED:?set in docker/.env}
 
     # If set to 0, the server will accept connections without requiring authorization from the list of supplied CAs (default is 1).
-    SMTP_REJECT_UNAUTHORIZED_TLS: ${SMTP_REJECT_UNAUTHORIZED_TLS:-}
+    # SMTP_REJECT_UNAUTHORIZED_TLS: ${SMTP_REJECT_UNAUTHORIZED_TLS:?set in docker/.env}
 
     ############################################## OPTIONAL (APP CONFIGURATION) ##############################################
 
     # Set the below value if you have and want to use a custom URL for the links created by Link Shortener
-    SHORT_URL_BASE: ${SHORT_URL_BASE:-}
+    # SHORT_URL_BASE: ${SHORT_URL_BASE:?set in docker/.env}
 
     # Set the below to 0 to enable Email Verification for new signups (will require Email Configuration)
     EMAIL_VERIFICATION_DISABLED: ${EMAIL_VERIFICATION_DISABLED:-1}
@@ -60,30 +60,30 @@ x-environment: &environment
     PASSWORD_RESET_DISABLED: ${PASSWORD_RESET_DISABLED:-1}
 
     # Set the below to 1 to disable logins with email
-    EMAIL_AUTH_DISABLED: ${EMAIL_AUTH_DISABLED:-}
+    # EMAIL_AUTH_DISABLED: ${EMAIL_AUTH_DISABLED:?set in docker/.env}
 
     # Set the below to 1 to disable invites
-    INVITE_DISABLED: ${INVITE_DISABLED:-}
+    # INVITE_DISABLED: ${INVITE_DISABLED:?set in docker/.env}
 
     # Set the below if you want to ship JS & CSS files from a complete URL instead of the current domain
-    ASSET_PREFIX_URL: ${ASSET_PREFIX_URL:-}
+    # ASSET_PREFIX_URL: ${ASSET_PREFIX_URL:?set in docker/.env}
 
     # Set the below to your Unsplash API Key for their Survey Backgrounds
-    UNSPLASH_ACCESS_KEY: ${UNSPLASH_ACCESS_KEY:-}
+    # UNSPLASH_ACCESS_KEY: ${UNSPLASH_ACCESS_KEY:?set in docker/.env}
 
     ################################################### OPTIONAL (STORAGE) ###################################################
 
     # Set the below to set a custom Upload Directory
-    UPLOADS_DIR: ${UPLOADS_DIR:-}
+    # UPLOADS_DIR: ${UPLOADS_DIR:?set in docker/.env}
 
     # Set S3 Storage configuration (required for the file upload in serverless environments like Vercel)
-    S3_ACCESS_KEY: ${S3_ACCESS_KEY:-}
-    S3_SECRET_KEY: ${S3_SECRET_KEY:-}
-    S3_REGION: ${S3_REGION:-}
-    S3_BUCKET_NAME: ${S3_BUCKET_NAME:-}
+    # S3_ACCESS_KEY: ${S3_ACCESS_KEY:?set in docker/.env}
+    # S3_SECRET_KEY: ${S3_SECRET_KEY:?set in docker/.env}
+    # S3_REGION: ${S3_REGION:?set in docker/.env}
+    # S3_BUCKET_NAME: ${S3_BUCKET_NAME:?set in docker/.env}
 
     # Set a third party S3 compatible storage service endpoint like StorJ, leave empty if you use Amazon S3
-    S3_ENDPOINT_URL: ${S3_ENDPOINT_URL:-}
+    # S3_ENDPOINT_URL: ${S3_ENDPOINT_URL:?set in docker/.env}
 
     # Force path style for S3 compatible storage (0 for disabled, 1 for enabled)
     S3_FORCE_PATH_STYLE: ${S3_FORCE_PATH_STYLE:-0}
@@ -91,81 +91,81 @@ x-environment: &environment
     ############################################# OPTIONAL (OAUTH CONFIGURATION) #############################################
 
     # Set the below from Cloudflare Turnstile if you want to enable turnstile in signups
-    NEXT_PUBLIC_TURNSTILE_SITE_KEY: ${NEXT_PUBLIC_TURNSTILE_SITE_KEY:-}
-    TURNSTILE_SECRET_KEY: ${TURNSTILE_SECRET_KEY:-}
+    # NEXT_PUBLIC_TURNSTILE_SITE_KEY: ${NEXT_PUBLIC_TURNSTILE_SITE_KEY:?set in docker/.env}
+    # TURNSTILE_SECRET_KEY: ${TURNSTILE_SECRET_KEY:?set in docker/.env}
 
     # Set the below from GitHub if you want to enable GitHub OAuth
-    GITHUB_ID: ${GITHUB_ID:-}
-    GITHUB_SECRET: ${GITHUB_SECRET:-}
+    # GITHUB_ID: ${GITHUB_ID:?set in docker/.env}
+    # GITHUB_SECRET: ${GITHUB_SECRET:?set in docker/.env}
 
     # Set the below from Google if you want to enable Google OAuth
-    GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
-    GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
+    # GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:?set in docker/.env}
+    # GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:?set in docker/.env}
 
     # Set the below from Azure Active Directory Login if you want to enable Azure AD OAuth
-    AZUREAD_CLIENT_ID: ${AZUREAD_CLIENT_ID:-}
-    AZUREAD_CLIENT_SECRET: ${AZUREAD_CLIENT_SECRET:-}
-    AZUREAD_TENANT_ID: ${AZUREAD_TENANT_ID:-}
+    # AZUREAD_CLIENT_ID: ${AZUREAD_CLIENT_ID:?set in docker/.env}
+    # AZUREAD_CLIENT_SECRET: ${AZUREAD_CLIENT_SECRET:?set in docker/.env}
+    # AZUREAD_TENANT_ID: ${AZUREAD_TENANT_ID:?set in docker/.env}
 
     # Set the below to OpenID Connect Provider if you want to enable OIDC
-    OIDC_CLIENT_ID: ${OIDC_CLIENT_ID:-}
-    OIDC_CLIENT_SECRET: ${OIDC_CLIENT_SECRET:-}
-    OIDC_ISSUER: ${OIDC_ISSUER:-}
-    OIDC_DISPLAY_NAME: ${OIDC_DISPLAY_NAME:-}
-    OIDC_SIGNING_ALGORITHM: ${OIDC_SIGNING_ALGORITHM:-}
+    # OIDC_CLIENT_ID: ${OIDC_CLIENT_ID:?set in docker/.env}
+    # OIDC_CLIENT_SECRET: ${OIDC_CLIENT_SECRET:?set in docker/.env}
+    # OIDC_ISSUER: ${OIDC_ISSUER:?set in docker/.env}
+    # OIDC_DISPLAY_NAME: ${OIDC_DISPLAY_NAME:?set in docker/.env}
+    # OIDC_SIGNING_ALGORITHM: ${OIDC_SIGNING_ALGORITHM:?set in docker/.env}
 
     ########################################## OPTIONAL (THIRD PARTY INTEGRATIONS) ###########################################
 
     # Oauth credentials for Notion Integration
-    NOTION_OAUTH_CLIENT_ID: ${NOTION_OAUTH_CLIENT_ID:-}
-    NOTION_OAUTH_CLIENT_SECRET: ${NOTION_OAUTH_CLIENT_SECRET:-}
+    # NOTION_OAUTH_CLIENT_ID: ${NOTION_OAUTH_CLIENT_ID:?set in docker/.env}
+    # NOTION_OAUTH_CLIENT_SECRET: ${NOTION_OAUTH_CLIENT_SECRET:?set in docker/.env}
 
     # Oauth credentials for Google Sheet Integration
-    GOOGLE_SHEETS_CLIENT_ID: ${GOOGLE_SHEETS_CLIENT_ID:-}
-    GOOGLE_SHEETS_CLIENT_SECRET: ${GOOGLE_SHEETS_CLIENT_SECRET:-}
-    GOOGLE_SHEETS_REDIRECT_URL: ${GOOGLE_SHEETS_REDIRECT_URL:-}
+    # GOOGLE_SHEETS_CLIENT_ID: ${GOOGLE_SHEETS_CLIENT_ID:?set in docker/.env}
+    # GOOGLE_SHEETS_CLIENT_SECRET: ${GOOGLE_SHEETS_CLIENT_SECRET:?set in docker/.env}
+    # GOOGLE_SHEETS_REDIRECT_URL: ${GOOGLE_SHEETS_REDIRECT_URL:?set in docker/.env}
 
     # Oauth credentials for Airtable Integration
-    AIRTABLE_CLIENT_ID: ${AIRTABLE_CLIENT_ID:-}
+    # AIRTABLE_CLIENT_ID: ${AIRTABLE_CLIENT_ID:?set in docker/.env}
 
     # Oauth credentials for Slack Integration
-    SLACK_CLIENT_ID: ${SLACK_CLIENT_ID:-}
-    SLACK_CLIENT_SECRET: ${SLACK_CLIENT_SECRET:-}
+    # SLACK_CLIENT_ID: ${SLACK_CLIENT_ID:?set in docker/.env}
+    # SLACK_CLIENT_SECRET: ${SLACK_CLIENT_SECRET:?set in docker/.env}
 
     ############################################### OPTIONAL (LEGAL INFORMATION) ################################################
 
     # Set the below to have your own Privacy Page URL on auth & link survey page
-    PRIVACY_URL: ${PRIVACY_URL:-}
+    # PRIVACY_URL: ${PRIVACY_URL:?set in docker/.env}
 
     # Set the below to have your own Terms Page URL on auth & link survey page
-    TERMS_URL: ${TERMS_URL:-}
+    # TERMS_URL: ${TERMS_URL:?set in docker/.env}
 
     # Set the below to have your own Imprint Page URL on auth & link survey page
-    IMPRINT_URL: ${IMPRINT_URL:-}
+    # IMPRINT_URL: ${IMPRINT_URL:?set in docker/.env}
 
     # Set the below to have your own Address on email footer
-    IMPRINT_ADDRESS: ${IMPRINT_ADDRESS:-}
+    # IMPRINT_ADDRESS: ${IMPRINT_ADDRESS:?set in docker/.env}
 
     ########################################## OPTIONAL (SERVER CONFIGURATION) ###########################################
 
     # Set the below to 1 to disable Rate Limiting across Formbricks
-    RATE_LIMITING_DISABLED: ${RATE_LIMITING_DISABLED:-}
+    # RATE_LIMITING_DISABLED: ${RATE_LIMITING_DISABLED:?set in docker/.env}
 
     # Set the below to send OpenTelemetry data for tracing
-    OPENTELEMETRY_LISTENER_URL: ${OPENTELEMETRY_LISTENER_URL:-}
+    # OPENTELEMETRY_LISTENER_URL: ${OPENTELEMETRY_LISTENER_URL:?set in docker/.env}
 
     # Set the below to use Redis for Next Caching (default is In-Memory from Next Cache)
-    REDIS_URL: ${REDIS_URL:-}
+    # REDIS_URL: ${REDIS_URL:?set in docker/.env}
 
     # Set the below to use for Rate Limiting (default is In-Memory LRU Cache)
-    REDIS_HTTP_URL: ${REDIS_HTTP_URL:-}
+    # REDIS_HTTP_URL: ${REDIS_HTTP_URL:?set in docker/.env}
 
     ############################################# OPTIONAL (OTHER) #############################################
 
     # Set the below to automatically assign new users to a specific organization and role within that organization
     # (Role Management is an Enterprise feature)
-    DEFAULT_ORGANIZATION_ID: ${DEFAULT_ORGANIZATION_ID:-}
-    DEFAULT_ORGANIZATION_ROLE: ${DEFAULT_ORGANIZATION_ROLE:-}
+    # DEFAULT_ORGANIZATION_ID: ${DEFAULT_ORGANIZATION_ID:?set in docker/.env}
+    # DEFAULT_ORGANIZATION_ROLE: ${DEFAULT_ORGANIZATION_ROLE:?set in docker/.env}
 
 
 services:
