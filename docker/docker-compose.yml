@@ -1,9 +1,10 @@
 x-environment: &environment
   environment:
-    ######################################################## REQUIRED ########################################################
+    # NOTE: optional vars (SMTP, OAuth, S3, legal, etc.) are NOT listed here on purpose —
+    # empty strings crash the app's env validation. They are passed via env_file (.env):
+    # present in .env => set in container; absent => completely unset.
 
     # The url of your Formbricks instance used in the admin panel
-    # Set this to your public-facing URL, e.g., https://example.com
     WEBAPP_URL: ${WEBAPP_URL:?WEBAPP_URL is required — set it in docker/.env}
 
     # Required for next-auth. Defaults to WEBAPP_URL
@@ -13,159 +14,19 @@ x-environment: &environment
     # Defaults to the bundled postgres service (password configurable via POSTGRES_PASSWORD)
     DATABASE_URL: ${DATABASE_URL:-postgresql://postgres:${POSTGRES_PASSWORD:-postgres}@postgres:5432/formbricks?schema=public}
 
-    # NextJS Auth
-    # @see: https://next-auth.js.org/configuration/options#nextauth_secret
-    # You can use: `openssl rand -hex 32` to generate one
+    # NextJS Auth — generate with: openssl rand -hex 32
     NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:?NEXTAUTH_SECRET is required — set it in docker/.env}
 
-    # Encryption Key is used for 2FA & Single use URLs for Link Surveys
-    # You can use: $(openssl rand -hex 32) to generate one
+    # Used for 2FA & Single use URLs for Link Surveys — openssl rand -hex 32
     ENCRYPTION_KEY: ${ENCRYPTION_KEY:?ENCRYPTION_KEY is required — set it in docker/.env}
 
-    # API Secret for running cron jobs.
-    # You can use: $(openssl rand -hex 32) to generate a secure one
+    # API Secret for running cron jobs — openssl rand -hex 32
     CRON_SECRET: ${CRON_SECRET:?CRON_SECRET is required — set it in docker/.env}
 
-    ############################################# OPTIONAL (ENTERPRISE EDITION) #############################################
-
-    # Enterprise License Key (More info at: https://formbricks.com/docs/self-hosting/license)
-    # Required to access Enterprise-only features
-    ENTERPRISE_LICENSE_KEY: ${ENTERPRISE_LICENSE_KEY:-}
-
-    ############################################# OPTIONAL (EMAIL CONFIGURATION) #############################################
-
-    # Email Configuration
-    MAIL_FROM: ${MAIL_FROM:-}
-    SMTP_HOST: ${SMTP_HOST:-}
-    SMTP_PORT: ${SMTP_PORT:-}
-    SMTP_USER: ${SMTP_USER:-}
-    SMTP_PASSWORD: ${SMTP_PASSWORD:-}
-    SMTP_AUTHENTICATED: ${SMTP_AUTHENTICATED:-}
-
-    # (Additional option for TLS (port 465) only)
-    SMTP_SECURE_ENABLED: ${SMTP_SECURE_ENABLED:-}
-
-    # If set to 0, the server will accept connections without requiring authorization from the list of supplied CAs (default is 1).
-    SMTP_REJECT_UNAUTHORIZED_TLS: ${SMTP_REJECT_UNAUTHORIZED_TLS:-}
-
-    ############################################## OPTIONAL (APP CONFIGURATION) ##############################################
-
-    # Set the below value if you have and want to use a custom URL for the links created by Link Shortener
-    SHORT_URL_BASE: ${SHORT_URL_BASE:-}
-
-    # Set the below to 0 to enable Email Verification for new signups (will require Email Configuration)
+    # Feature flags (safe defaults, never empty)
     EMAIL_VERIFICATION_DISABLED: ${EMAIL_VERIFICATION_DISABLED:-1}
-
-    # Set the below to 0 to enable Password Reset (will require Email Configuration)
     PASSWORD_RESET_DISABLED: ${PASSWORD_RESET_DISABLED:-1}
-
-    # Set the below to 1 to disable logins with email
-    EMAIL_AUTH_DISABLED: ${EMAIL_AUTH_DISABLED:-}
-
-    # Set the below to 1 to disable invites
-    INVITE_DISABLED: ${INVITE_DISABLED:-}
-
-    # Set the below if you want to ship JS & CSS files from a complete URL instead of the current domain
-    ASSET_PREFIX_URL: ${ASSET_PREFIX_URL:-}
-
-    # Set the below to your Unsplash API Key for their Survey Backgrounds
-    UNSPLASH_ACCESS_KEY: ${UNSPLASH_ACCESS_KEY:-}
-
-    ################################################### OPTIONAL (STORAGE) ###################################################
-
-    # Set the below to set a custom Upload Directory
-    UPLOADS_DIR: ${UPLOADS_DIR:-}
-
-    # Set S3 Storage configuration (required for the file upload in serverless environments like Vercel)
-    S3_ACCESS_KEY: ${S3_ACCESS_KEY:-}
-    S3_SECRET_KEY: ${S3_SECRET_KEY:-}
-    S3_REGION: ${S3_REGION:-}
-    S3_BUCKET_NAME: ${S3_BUCKET_NAME:-}
-
-    # Set a third party S3 compatible storage service endpoint like StorJ, leave empty if you use Amazon S3
-    S3_ENDPOINT_URL: ${S3_ENDPOINT_URL:-}
-
-    # Force path style for S3 compatible storage (0 for disabled, 1 for enabled)
     S3_FORCE_PATH_STYLE: ${S3_FORCE_PATH_STYLE:-0}
-
-    ############################################# OPTIONAL (OAUTH CONFIGURATION) #############################################
-
-    # Set the below from Cloudflare Turnstile if you want to enable turnstile in signups
-    NEXT_PUBLIC_TURNSTILE_SITE_KEY: ${NEXT_PUBLIC_TURNSTILE_SITE_KEY:-}
-    TURNSTILE_SECRET_KEY: ${TURNSTILE_SECRET_KEY:-}
-
-    # Set the below from GitHub if you want to enable GitHub OAuth
-    GITHUB_ID: ${GITHUB_ID:-}
-    GITHUB_SECRET: ${GITHUB_SECRET:-}
-
-    # Set the below from Google if you want to enable Google OAuth
-    GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
-    GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
-
-    # Set the below from Azure Active Directory Login if you want to enable Azure AD OAuth
-    AZUREAD_CLIENT_ID: ${AZUREAD_CLIENT_ID:-}
-    AZUREAD_CLIENT_SECRET: ${AZUREAD_CLIENT_SECRET:-}
-    AZUREAD_TENANT_ID: ${AZUREAD_TENANT_ID:-}
-
-    # Set the below to OpenID Connect Provider if you want to enable OIDC
-    OIDC_CLIENT_ID: ${OIDC_CLIENT_ID:-}
-    OIDC_CLIENT_SECRET: ${OIDC_CLIENT_SECRET:-}
-    OIDC_ISSUER: ${OIDC_ISSUER:-}
-    OIDC_DISPLAY_NAME: ${OIDC_DISPLAY_NAME:-}
-    OIDC_SIGNING_ALGORITHM: ${OIDC_SIGNING_ALGORITHM:-}
-
-    ########################################## OPTIONAL (THIRD PARTY INTEGRATIONS) ###########################################
-
-    # Oauth credentials for Notion Integration
-    NOTION_OAUTH_CLIENT_ID: ${NOTION_OAUTH_CLIENT_ID:-}
-    NOTION_OAUTH_CLIENT_SECRET: ${NOTION_OAUTH_CLIENT_SECRET:-}
-
-    # Oauth credentials for Google Sheet Integration
-    GOOGLE_SHEETS_CLIENT_ID: ${GOOGLE_SHEETS_CLIENT_ID:-}
-    GOOGLE_SHEETS_CLIENT_SECRET: ${GOOGLE_SHEETS_CLIENT_SECRET:-}
-    GOOGLE_SHEETS_REDIRECT_URL: ${GOOGLE_SHEETS_REDIRECT_URL:-}
-
-    # Oauth credentials for Airtable Integration
-    AIRTABLE_CLIENT_ID: ${AIRTABLE_CLIENT_ID:-}
-
-    # Oauth credentials for Slack Integration
-    SLACK_CLIENT_ID: ${SLACK_CLIENT_ID:-}
-    SLACK_CLIENT_SECRET: ${SLACK_CLIENT_SECRET:-}
-
-    ############################################### OPTIONAL (LEGAL INFORMATION) ################################################
-
-    # Set the below to have your own Privacy Page URL on auth & link survey page
-    PRIVACY_URL: ${PRIVACY_URL:-}
-
-    # Set the below to have your own Terms Page URL on auth & link survey page
-    TERMS_URL: ${TERMS_URL:-}
-
-    # Set the below to have your own Imprint Page URL on auth & link survey page
-    IMPRINT_URL: ${IMPRINT_URL:-}
-
-    # Set the below to have your own Address on email footer
-    IMPRINT_ADDRESS: ${IMPRINT_ADDRESS:-}
-
-    ########################################## OPTIONAL (SERVER CONFIGURATION) ###########################################
-
-    # Set the below to 1 to disable Rate Limiting across Formbricks
-    RATE_LIMITING_DISABLED: ${RATE_LIMITING_DISABLED:-}
-
-    # Set the below to send OpenTelemetry data for tracing
-    OPENTELEMETRY_LISTENER_URL: ${OPENTELEMETRY_LISTENER_URL:-}
-
-    # Set the below to use Redis for Next Caching (default is In-Memory from Next Cache)
-    REDIS_URL: ${REDIS_URL:-}
-
-    # Set the below to use for Rate Limiting (default is In-Memory LRU Cache)
-    REDIS_HTTP_URL: ${REDIS_HTTP_URL:-}
-
-    ############################################# OPTIONAL (OTHER) #############################################
-
-    # Set the below to automatically assign new users to a specific organization and role within that organization
-    # (Role Management is an Enterprise feature)
-    DEFAULT_ORGANIZATION_ID: ${DEFAULT_ORGANIZATION_ID:-}
-    DEFAULT_ORGANIZATION_ROLE: ${DEFAULT_ORGANIZATION_ROLE:-}
 
 
 services:
@@ -188,6 +49,11 @@ services:
       - 3000
     volumes:
       - ../files/uploads:/home/nextjs/apps/web/uploads/
+    # Every var defined (and uncommented) in .env is injected verbatim;
+    # vars absent from .env are simply not set in the container.
+    env_file:
+      - path: .env
+        required: false
     <<: *environment
 
 volumes:
